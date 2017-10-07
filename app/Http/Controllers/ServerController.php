@@ -8,15 +8,28 @@ use Validator;
 
 class ServerController extends Controller
 {
+    /**
+     * View - List existing servers in a list.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function serverList () {
         $servers = Server::all();
         return view('server/index', ['servers' => $servers]);
     }
-    
+
+    /**
+     * View - Form to add a server.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function addServer () {
         return view ('server/add');
     }
 
+    /**
+     * Post Method - Validate and process the form submit to create a server.
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addServerPost (Request $request) {
         $validation = Validator::make($request->all(),
             ['server_name' => 'required', 'server_host' => 'required', 'server_key' => 'required']
