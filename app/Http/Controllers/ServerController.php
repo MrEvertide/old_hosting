@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Server;
+use Validator;
 
 class ServerController extends Controller
 {
@@ -17,16 +18,24 @@ class ServerController extends Controller
     }
 
     public function addServerPost (Request $request) {
+        $validation = Validator::make($request->all(),
+            ['server_name' => 'required', 'server_host' => 'required', 'server_key' => 'required']
+        );
+
+        if ($validation->fails()) {
+            return redirect(route('serverAdd'))->withErrors($validation)->withInput();
+        }
+
         $name = $request->input('server_name');
         $host = $request->input('server_host');
         $api = $request->input('server_key');
-	
-        $server = new Server;
-	$server->name = $name;
-	$server->host = $host;
-	$server->api_token = $api;
-	$server->save();
 
-	return redirect('servers');
+        $server = new Server;
+        $server->name = $name;
+        $server->host = $host;
+        $server->api_token = $api;
+        $server->save();
+
+        return redirect('servers');
     }
 }
