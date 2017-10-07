@@ -16,11 +16,15 @@
                         <tr>
                             <th>Name</th>
                             <th>Host</th>
+                            <th>Action</th>
                         </tr>
                         @foreach ($servers as $server)
                         <tr>
                             <td>{{$server['name']}}</td>
                             <td>{{$server['host']}}</td>
+                            <td>
+                                <a href="{{ route('serverDelete', $server['id']) }}" class="btn btn-danger">delete</a>
+                            </td>
                         </tr>
                         @endforeach
                     </table>

@@ -51,4 +51,18 @@ class ServerController extends Controller
 
         return redirect('servers');
     }
+
+    /**
+     * Method - Action to delete a server from the list.
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function deleteServer ($id) {
+        $server = Server::find($id);
+
+        if ($server) {
+            $server->delete();
+        }
+        return redirect('servers');
+    }
 }
