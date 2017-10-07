@@ -65,4 +65,19 @@ class ServerController extends Controller
         }
         return redirect('servers');
     }
+
+    /**
+     * View - Detail page for the server configurations.
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
+    public function viewServer($id) {
+        $server = Server::find($id);
+
+        if ($server) {
+            return view('server/view', ['server' => $server]);
+        } else {
+            return redirect('servers');
+        }
+    }
 }

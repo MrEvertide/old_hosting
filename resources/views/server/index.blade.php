@@ -23,6 +23,7 @@
                             <td>{{$server['name']}}</td>
                             <td>{{$server['host']}}</td>
                             <td>
+                                <a href="{{ route('serverView', $server['id']) }}" class="btn btn-primary">view</a>
                                 <a href="{{ route('serverDelete', $server['id']) }}" class="btn btn-danger">delete</a>
                             </td>
                         </tr>
