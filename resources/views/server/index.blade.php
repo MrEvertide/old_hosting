@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
 		    <h4 class="pull-left">Server List</h4>
-			<a class="btn btn-primary pull-right" href="/servers/add">Add a server</a>
+			<a class="btn btn-primary pull-right" href="{{route('serverAdd')}}">Add a server</a>
 		    <div class="clearfix"></div>
 		</div>
 

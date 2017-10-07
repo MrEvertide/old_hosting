@@ -19,5 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/servers', 'ServerController@serverList')->name('serverList');
-Route::get('/servers/add', 'ServerController@addServer');
+Route::get('/servers/add', 'ServerController@addServer')->name('serverAdd');
 Route::post('servers/add', 'ServerController@addServerPost');
