@@ -13,14 +13,12 @@
                     <div class="panel-body">
                         <table class="table">
                             <tr>
-                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Host</th>
                                 <th>API Token</th>
                                 <th>Action</th>
                             </tr>
                             <tr>
-                                <td>{{$server['id']}}</td>
                                 <td>{{$server['name']}}</td>
                                 <td>{{$server['host']}}</td>
                                 <td>{{$server['api_token']}}</td>
