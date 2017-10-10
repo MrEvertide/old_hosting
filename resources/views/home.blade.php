@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="pull-left">Dashboard</h4>
-                    <a class="btn btn-primary pull-right" href="{{route('refreshList')}}">Refresh</a>
+                    <a class="btn btn-primary pull-right" href="{{route('refreshList')}}"><i class="fa fa-refresh"></i></a>
                     <div class="clearfix"></div>
                 </div>
 
