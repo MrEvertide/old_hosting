@@ -24,7 +24,7 @@ class Utility extends Model
         } else {
             $url = $protocol . "://" . $host;
         }
-        
+
         return $url;
     }
 }
