@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="pull-left">Server List</h4>
@@ -23,8 +23,7 @@
                             <td>{{$server['name']}}</td>
                             <td>{{$server['host']}}</td>
                             <td>
-                                <a href="{{ route('serverView', $server['id']) }}" class="btn btn-primary">view</a>
-                                <a href="{{ route('serverDelete', $server['id']) }}" class="btn btn-danger">delete</a>
+                                <a href="{{ route('serverView', $server['id']) }}" class="btn btn-primary">View</a>
                             </td>
                         </tr>
                         @endforeach
