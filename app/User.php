@@ -26,4 +26,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Access the Team object attached to the user.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function teams() {
+        return $this->belongsToMany('App\Team');
+    }
+
+    /**
+     * Method to add a user to a specified Team object.
+     * @param $team
+     * @return bool
+     */
+    public function addToTeam($team) {
+        if($this->teams()->attach($team->id) == 'NULL') {
+            return false;
+        }
+        return true;
+    }
 }
