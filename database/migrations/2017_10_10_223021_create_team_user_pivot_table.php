@@ -14,9 +14,9 @@ class CreateTeamUserPivotTable extends Migration
     {
         Schema::create('team_user', function (Blueprint $table) {
             $table->integer('team_id')->unsigned()->index();
-            $table->foreign('team_id')->references('id')->on('team');
+            $table->foreign('team_id')->references('id')->on('teams');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->primary(['team_id', 'user_id']);
         });
     }
