@@ -62,7 +62,9 @@
                                     <li>
                                         @if (Auth::user()->hasCompletedSetup())
                                             <a href="{{ route('home') }}">Dashboard</a>
-                                            <a href="{{ route('serverList') }}">Server Management</a>
+                                            @if (Auth::user()->isTeamAdmin())
+                                                <a href="{{ route('serverList') }}">Server Management</a>
+                                            @endif
                                         @endif
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

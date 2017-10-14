@@ -42,7 +42,7 @@ class SetupController extends Controller
         $team = new Team;
         $team->name = $request->input('team_name');
         $user = Auth::user();
-        $user->teams()->save($team);
+        $user->teams()->save($team, ['is_admin' => true]);
 
         return redirect(route('home'));
     }

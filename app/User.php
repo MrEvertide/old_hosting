@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function teams() {
-        return $this->belongsToMany('App\Team');
+        return $this->belongsToMany('App\Team')->withPivot('is_admin');
     }
 
     /**
@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Method to determine if the user has completed the setup process
+     * Method to determine if the user has completed the setup process.
      * @return bool
      */
     public function hasCompletedSetup() {
@@ -57,6 +57,18 @@ class User extends Authenticatable
             return false;
         } else {
             return true;
+        }
+    }
+
+    /**
+     * Method to determine if the user is admin of his team.
+     * @return bool
+     */
+    public function isTeamAdmin() {
+        if (Auth::user()->teams->first()->pivot->is_admin) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

@@ -33,7 +33,11 @@ class ServerController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addServer () {
-        return view ('server/add');
+        if (Auth::user()->teams()->first()->pivot->is_admin) {
+            return view ('server/add');
+        } else {
+            return redirect('home');
+        }
     }
 
     /**

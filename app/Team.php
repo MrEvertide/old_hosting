@@ -23,6 +23,6 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users() {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withPivot('is_admin');
     }
 }
