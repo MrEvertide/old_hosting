@@ -10,6 +10,18 @@ class Team extends Model
         'name'
     ];
 
+    /**
+     * Access the Servers object attached to the team.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function servers() {
+        return $this->hasMany('App\Server');
+    }
+
+    /**
+     * Access the Users object attached to the team.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users() {
         return $this->belongsToMany('App\User');
     }

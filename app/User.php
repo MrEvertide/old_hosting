@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,17 @@ class User extends Authenticatable
             return false;
         }
         return true;
+    }
+
+    /**
+     * Method to determine if the user has completed the setup process
+     * @return bool
+     */
+    public function hasCompletedSetup() {
+        if (count(Auth::user()->teams) == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
