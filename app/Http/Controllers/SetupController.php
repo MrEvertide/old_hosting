@@ -22,6 +22,9 @@ class SetupController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function createTeam() {
+        if (Auth::user()->teams()->first()) {
+            return redirect(route("home"));
+        }
         return view('setup.createTeam');
     }
 
