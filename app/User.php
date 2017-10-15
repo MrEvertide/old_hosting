@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -38,6 +37,7 @@ class User extends Authenticatable
 
     /**
      * Method to add a user to a specified Team object.
+     * Not used for now since users can only be part of 1 Team.
      * @param $team
      * @return bool
      */
@@ -53,7 +53,7 @@ class User extends Authenticatable
      * @return bool
      */
     public function hasCompletedSetup() {
-        if (count(Auth::user()->teams) == 0) {
+        if (count($this->team()) == 0) {
             return false;
         } else {
             return true;
@@ -65,10 +65,20 @@ class User extends Authenticatable
      * @return bool
      */
     public function isTeamAdmin() {
-        if (Auth::user()->teams->first()->pivot->is_admin) {
+        if ($this->team()->pivot->is_admin) {
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Return the user's Team
+     * For now, users can only be part of a single team.
+     * Later on, multi teams will be a feature.
+     * @return mixed
+     */
+    public function team() {
+        return $this->teams()->first();
     }
 }
