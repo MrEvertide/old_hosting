@@ -12,11 +12,6 @@
                 </div>
 
                 <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     @if (count($servers) > 0)
                         @foreach ($servers as $server)
                             <h3>{{$server->name}}</h3>

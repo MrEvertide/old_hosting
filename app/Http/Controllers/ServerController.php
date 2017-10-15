@@ -36,7 +36,7 @@ class ServerController extends Controller
         if (Auth::user()->teams()->first()->pivot->is_admin) {
             return view ('server/add');
         } else {
-            return redirect('home');
+            return redirect('home')->with('error', true)->with('message', 'You do not have administrator access to this page.');
         }
     }
 
@@ -55,7 +55,7 @@ class ServerController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return redirect(route('serverAdd'))->withErrors($validation)->withInput();
+            return redirect()->back()->withErrors($validation)->withInput();
         }
 
         $name = $request->input('server_name');
@@ -81,7 +81,7 @@ class ServerController extends Controller
 
         $user->teams()->first()->servers()->save($server);
 
-        return redirect('servers');
+        return redirect('servers')->with('success', true)->with('message', 'Your server has been created.');
     }
 
     /**
@@ -96,7 +96,7 @@ class ServerController extends Controller
         if ($user->teams()->first()->servers()->find($server->id)) {
             $server->delete();
         }
-        return redirect('servers');
+        return redirect('servers')->with('success', true)->with('message', 'Your server has been deleted.');
     }
 
     /**
@@ -111,7 +111,7 @@ class ServerController extends Controller
         if ($user->teams()->first()->servers()->find($server->id)) {
             return view('server/view', ['server' => $server]);
         } else {
-            return redirect('servers');
+            return redirect('servers')->with('error', true)->with('message', 'You do not have access to view this page.');
         }
     }
 
