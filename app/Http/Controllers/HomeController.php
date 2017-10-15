@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use \App\Server;
-use \App\Http\Controllers\ServerController;
 
 class HomeController extends Controller
 {
@@ -18,7 +16,6 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -27,11 +24,12 @@ class HomeController extends Controller
     }
 
     /**
+     * Redirect method - refresh the account list.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function refreshDashboard() {
-        $test = new ServerController();
-        $test->updateAccountList();
+        //Call the ServerController updateAccountList method to refresh the data.
+        \App::call('App\Http\Controllers\ServerController@updateAccountList');
 
         return redirect('home')->with('success', true)->with('message', 'Account data synchronized.');
     }
