@@ -29,9 +29,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ route('home') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    @if (Auth::user() && Auth::user()->hasCompletedSetup())
+                        <a class="navbar-brand" href="{{ route('home') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @else
+                        <a class="navbar-brand">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -54,8 +60,12 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('home') }}">Dashboard</a>
-                                        <a href="{{ route('serverList') }}">Server Management</a>
+                                        @if (Auth::user()->hasCompletedSetup())
+                                            <a href="{{ route('home') }}">Dashboard</a>
+                                            @if (Auth::user()->isTeamAdmin())
+                                                <a href="{{ route('serverList') }}">Server Management</a>
+                                            @endif
+                                        @endif
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

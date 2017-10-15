@@ -12,6 +12,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @if (count($servers) > 0)
                     <table class="table">
                         <tr>
                             <th>Name</th>
@@ -28,6 +29,9 @@
                         </tr>
                         @endforeach
                     </table>
+                    @else
+                        @include('partials.messageSetupServer')
+                    @endif
                 </div>
             </div>
         </div>

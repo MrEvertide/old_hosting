@@ -17,33 +17,39 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @foreach ($servers as $server)
-                    <h3>{{$server->name}}</h3>
-                    <table class="table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Domain</th>
-                            <th>Plan</th>
-                            <th>Disk Usage</th>
-                            <th>Disk Limit</th>
-                            <th>Is Suspended</th>
-                        </tr>
-                        @foreach ($server->accounts as $account)
-                            <tr>
-                                <td>{{$account['name']}}</td>
-                                <td>{{$account['domain']}}</td>
-                                <td>{{$account['plan']}}</td>
-                                <td>{{$account['disk_usage']}}</td>
-                                <td>{{$account['disk_limit']}}</td>
-                                @if ($account['is_suspended'])
-                                    <td>Yes</td>
-                                @else
-                                    <td>No</td>
-                                @endif
-                            </tr>
+                    @if (count($servers) > 0)
+                        @foreach ($servers as $server)
+                            <h3>{{$server->name}}</h3>
+                            <table class="table">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Domain</th>
+                                    <th>Plan</th>
+                                    <th>Disk Usage</th>
+                                    <th>Is Suspended</th>
+                                </tr>
+                                @foreach ($server->accounts as $account)
+                                    <tr>
+                                        <td>{{$account['name']}}</td>
+                                        <td>{{$account['domain']}}</td>
+                                        <td>{{$account['plan']}}</td>
+                                        @if( $account['disk_limit'] == 'unlimited' )
+                                            <td>{{$account['disk_usage']}} / &infin;</td>
+                                        @else
+                                            <td>{{$account['disk_usage']}} / {{$account['disk_limit']}}</td>
+                                        @endif
+                                        @if ($account['is_suspended'])
+                                            <td>Yes</td>
+                                        @else
+                                            <td>No</td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </table>
                         @endforeach
-                    </table>
-                    @endforeach
+                    @else
+                        @include('partials.messageSetupServer')
+                    @endif
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Account;
 use Illuminate\Http\Request;
 use \App\Server;
 use \App\Utility;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ServerController extends Controller
@@ -23,7 +24,7 @@ class ServerController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function serverList () {
-        $servers = Server::all();
+        $servers = Auth::user()->teams()->first()->servers()->get();
         return view('server/index', ['servers' => $servers]);
     }
 
@@ -32,7 +33,11 @@ class ServerController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addServer () {
-        return view ('server/add');
+        if (Auth::user()->teams()->first()->pivot->is_admin) {
+            return view ('server/add');
+        } else {
+            return redirect('home');
+        }
     }
 
     /**
@@ -57,22 +62,24 @@ class ServerController extends Controller
         $host = $request->input('server_host');
         $port = $request->input('server_port');
         $api = $request->input('server_key');
-        $user = $request->input('server_user');
+        $whm_user = $request->input('server_user');
 
         if ($request->input('server_https')) {
             $is_https = true;
         } else {
             $is_https = false;
         }
+        $user = Auth::user();
 
         $server = new Server;
         $server->name = $name;
         $server->host = $host;
         $server->port = $port;
         $server->api_token = $api;
-        $server->whm_user = $user;
+        $server->whm_user = $whm_user;
         $server->is_https = $is_https;
-        $server->save();
+
+        $user->teams()->first()->servers()->save($server);
 
         return redirect('servers');
     }
@@ -84,8 +91,9 @@ class ServerController extends Controller
      */
     public function deleteServer ($id) {
         $server = Server::find($id);
+        $user = Auth::user();
 
-        if ($server) {
+        if ($user->teams()->first()->servers()->find($server->id)) {
             $server->delete();
         }
         return redirect('servers');
@@ -98,8 +106,9 @@ class ServerController extends Controller
      */
     public function viewServer($id) {
         $server = Server::find($id);
+        $user = Auth::user();
 
-        if ($server) {
+        if ($user->teams()->first()->servers()->find($server->id)) {
             return view('server/view', ['server' => $server]);
         } else {
             return redirect('servers');
