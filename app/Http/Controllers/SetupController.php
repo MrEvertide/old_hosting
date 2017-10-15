@@ -47,7 +47,7 @@ class SetupController extends Controller
         $user = Auth::user();
         $user->teams()->save($team, ['is_admin' => true]);
 
-        return redirect(route('home'));
+        return redirect(route('home'))->with('success', true)->with('message', 'Your team has been created.');
     }
 
 }

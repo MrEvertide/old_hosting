@@ -33,6 +33,6 @@ class HomeController extends Controller
         $test = new ServerController();
         $test->updateAccountList();
 
-        return redirect('home');
+        return redirect('home')->with('success', true)->with('message', 'Account data synchronized.');
     }
 }
