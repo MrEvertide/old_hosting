@@ -10,34 +10,31 @@
                 </div>
                 
                 <div class="panel-body">
-                    <form action="{{ route('post_serverAdd') }}" method="POST">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-group">
-                            <label for="server_name">Name</label>
-                            <input type="text" name="server_name" id="server_name" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="server_host">Host</label>
-                            <input type="text" name="server_host" id="server_host" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="server_port">WHM Port</label>
-                            <input type="text" name="server_port" id="server_port" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="server_key">API token</label>
-                            <input type="text" name="server_key" id="server_key" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="server_user">WHM User</label>
-                            <input type="text" name="server_user" id="server_user" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="server_https">HTTPS</label>
-                            <input type="checkbox" name="server_https" id="server_https" class="checkbox">
-                        </div>
-                        <button type="submit" class="form-control btn btn-primary">Add server</button>
-                    </form>
+                    <?php
+                    echo Form::open(['url' => route('post_serverAdd'), 'method' => "POST"]);
+
+                    echo Form::label('server_name', 'Name');
+                    echo Form::text('server_name', $value = old('server_name'),['class' => 'form-control']);
+
+                    echo Form::label('server_host', 'Host');
+                    echo Form::text('server_host', $value = old('server_host'),['class' => 'form-control']);
+
+                    echo Form::label('server_port', 'WHM Port');
+                    echo Form::text('server_port', $value = old('server_port'),['class' => 'form-control']);
+
+                    echo Form::label('server_key', 'AIP Token');
+                    echo Form::text('server_key', $value = old('server_key'),['class' => 'form-control']);
+
+                    echo Form::label('server_user', 'WHM User');
+                    echo Form::text('server_user', $value = old('server_user'),['class' => 'form-control']);
+
+                    echo Form::label('server_https', 'HTTPS');
+                    echo Form::checkbox('server_https', '1', old('server_https'), ['class' => 'checkbox']);
+                    echo '<br>';
+
+                    echo Form::submit('Add server',['class' => 'form-control btn btn-primary']);
+                    echo Form::close();
+                    ?>
                 </div>
             </div>
         </div>

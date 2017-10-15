@@ -10,14 +10,16 @@
                 </div>
                 
                 <div class="panel-body">
-                    <form action="{{ route('post_createTeam') }}" method="POST">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-group">
-                            <label for="team_name">Name your Team</label>
-                            <input type="text" name="team_name" id="team_name" class="form-control">
-                        </div>
-                        <button type="submit" class="form-control btn btn-primary">Next</button>
-                    </form>
+                    <?php
+                    echo Form::open(['url' => route('post_createTeam'), 'method' => "POST"]);
+
+                    echo Form::label('team_name', 'Team name');
+                    echo Form::text('team_name', $value = old('team_name'),['class' => 'form-control']);
+                    echo '<br>';
+
+                    echo Form::submit('Next',['class' => 'form-control btn btn-primary']);
+                    echo Form::close();
+                    ?>
                 </div>
             </div>
         </div>
