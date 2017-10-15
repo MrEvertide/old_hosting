@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -28,9 +29,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
+                    @if (Auth::user() && Auth::user()->hasCompletedSetup())
+                        <a class="navbar-brand" href="{{ route('home') }}">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @else
+                        <a class="navbar-brand">
+                            {{ config('app.name', 'Laravel') }}
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -53,7 +60,12 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route('serverList') }}">Server Management</a>
+                                        @if (Auth::user()->hasCompletedSetup())
+                                            <a href="{{ route('home') }}">Dashboard</a>
+                                            @if (Auth::user()->isTeamAdmin())
+                                                <a href="{{ route('serverList') }}">Server Management</a>
+                                            @endif
+                                        @endif
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -72,6 +84,7 @@
             </div>
         </nav>
 
+        @include('partials.alerts')
         @yield('content')
     </div>
 
