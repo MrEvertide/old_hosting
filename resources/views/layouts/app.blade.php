@@ -63,7 +63,8 @@
                                         @if (Auth::user()->hasCompletedSetup())
                                             <a href="{{ route('home') }}">Dashboard</a>
                                             @if (Auth::user()->isTeamAdmin())
-                                                <a href="{{ route('serverList') }}">Server Management</a>
+                                                <a href="{{ route('admin@listServer') }}">Server Management</a>
+                                                <a href="{{ route('admin@listTeamMember') }}">Team Management</a>
                                             @endif
                                         @endif
                                         <a href="{{ route('logout') }}"

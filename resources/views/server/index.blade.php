@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="pull-left">Server List</h4>
-                    <a class="btn btn-primary pull-right" href="{{route('serverAdd')}}">Add a server</a>
+                    <a class="btn btn-primary pull-right" href="{{route('admin@addServer')}}">Add a server</a>
                     <div class="clearfix"></div>
                 </div>
 
@@ -24,7 +24,7 @@
                             <td>{{$server['name']}}</td>
                             <td>{{$server['host']}}</td>
                             <td>
-                                <a href="{{ route('serverView', $server['id']) }}" class="btn btn-primary">View</a>
+                                <a href="{{ route('admin@viewServer', $server['id']) }}" class="btn btn-primary">View</a>
                             </td>
                         </tr>
                         @endforeach

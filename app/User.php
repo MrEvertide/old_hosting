@@ -79,6 +79,12 @@ class User extends Authenticatable
      * @return mixed
      */
     public function team() {
-        return $this->teams()->first();
+        try {
+            return $this->teams()->first();
+        } catch (\ErrorException $ee) {
+            return redirect(route('setup@createTeam'));
+        } catch (\Exception $e) {
+            return redirect(route('setup@createTeam'));
+        }
     }
 }

@@ -81,7 +81,7 @@ class ServerController extends Controller
 
         $user->teams()->first()->servers()->save($server);
 
-        return redirect('servers')->with('success', true)->with('message', 'Your server has been created.');
+        return redirect(route('admin@listServer'))->with('success', true)->with('message', 'Your server has been created.');
     }
 
     /**
@@ -96,7 +96,7 @@ class ServerController extends Controller
         if ($user->teams()->first()->servers()->find($server->id)) {
             $server->delete();
         }
-        return redirect('servers')->with('success', true)->with('message', 'Your server has been deleted.');
+        return redirect(route('admin@listServer'))->with('success', true)->with('message', 'Your server has been deleted.');
     }
 
     /**
@@ -111,7 +111,7 @@ class ServerController extends Controller
         if ($user->teams()->first()->servers()->find($server->id)) {
             return view('server/view', ['server' => $server]);
         } else {
-            return redirect('servers')->with('error', true)->with('message', 'You do not have access to view this page.');
+            return redirect(route('admin@listServer'))->with('error', true)->with('message', 'You do not have access to view this page.');
         }
     }
 

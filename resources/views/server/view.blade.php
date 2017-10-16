@@ -33,7 +33,7 @@
                                     <td>No</td>
                                 @endif
                                 <td>
-                                    <a href="{{ route('serverDelete', $server['id']) }}" class="btn btn-danger">Delete</a>
+                                    <a href="{{ route('admin@deleteServer', $server['id']) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </table>

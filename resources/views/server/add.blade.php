@@ -11,7 +11,7 @@
                 
                 <div class="panel-body">
                     <?php
-                    echo Form::open(['url' => route('post_serverAdd'), 'method' => "POST"]);
+                    echo Form::open(['url' => route('admin@addServerPost'), 'method' => "POST"]);
 
                     echo Form::label('server_name', 'Name');
                     echo Form::text('server_name', $value = old('server_name'),['class' => 'form-control']);
