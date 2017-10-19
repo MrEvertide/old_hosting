@@ -119,7 +119,7 @@ class ServerController extends Controller
      * Method used to cycle all servers and update accounts' details.
      */
     public function updateAccountList() {
-        $servers = Server::all();
+        $servers = Auth::user()->team()->servers()->get();
 
         foreach ($servers as $server) {
             $this->getAllServerAccounts($server);
