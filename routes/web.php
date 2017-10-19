@@ -40,7 +40,7 @@ Route::group(['middleware' => 'App\Http\Middleware\SetupMiddleware'], function()
         Route::get('/admin/team/add', 'TeamController@addTeamMember')
             ->name('admin@addTeamMember');
 
-        Route::post('/admin/team/add', 'ServerController@addTeamMemberPost')
+        Route::post('/admin/team/add', 'TeamController@addTeamMemberPost')
             ->name('admin@addTeamMemberPost');
 
         Route::get('/admin/team/view/{id}', 'TeamController@viewTeamMember', function($id) {return $id;})
