@@ -28,6 +28,9 @@ Route::group(['middleware' => 'App\Http\Middleware\SetupMiddleware'], function()
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/refresh','HomeController@refreshDashboard')->name('refreshList');
 
+    //SETTINGS ROUTES
+    Route::get('/settings', 'SetupController@userSettings')->name('userSettings');
+    Route::post('/settings', 'SetupController@userSettingsPost')->name('userSettingsPost');
 
     //ADMIN ROUTES
     //Accessible only for team admins

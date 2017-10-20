@@ -54,7 +54,8 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <a href="#" class="dropdown-toggle" style="padding: 5px;" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <img style="height: 40px; border-radius: 20px;" src="{{url('images/profile/'.Auth::user()->picture)}}">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
@@ -62,6 +63,7 @@
                                     <li>
                                         @if (Auth::user()->hasCompletedSetup())
                                             <a href="{{ route('home') }}">Dashboard</a>
+                                            <a href="{{ route('userSettings') }}">User Settings</a>
                                             @if (Auth::user()->isTeamAdmin())
                                                 <a href="{{ route('admin@listServer') }}">Server Management</a>
                                                 <a href="{{ route('admin@listTeamMember') }}">Team Management</a>
