@@ -89,6 +89,31 @@ class TeamController extends Controller
     }
 
     /**
+     * Method - Action to add a user as a team administrator.
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function setTeamAdmin ($id) {
+        //Check if the user exist.
+        if (!User::find($id)) {
+            return redirect()->back()->with('error', true)->with('message', 'The specified user does not exist.');
+        }
+
+        $user = User::find($id);
+
+        if ($user == Auth::user()) {
+            return redirect()->back()->with('error', true)->with('message', 'You are already an administrator.');
+        }
+
+        if ($user->team()->pivot->is_admin) {
+            return redirect()->back()->with('error', true)->with('message', 'The user is already an administrator.');
+        }
+
+        $user->teams()->updateExistingPivot($user->team()->id , ['is_admin' => true]);
+        return redirect(route('admin@listTeamMember'))->with('success', true)->with('message', 'The user is now an administrator.');
+    }
+
+    /**
      * Post Method - Process the POST request to create a new user.
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse

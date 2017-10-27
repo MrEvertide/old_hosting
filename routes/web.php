@@ -54,6 +54,10 @@ Route::group(['middleware' => 'App\Http\Middleware\SetupMiddleware'], function()
             ->where('id', '[0-9]+')
             ->name('admin@deleteTeamMember');
 
+        Route::get('/admin/team/setAdmin/{id}', 'TeamController@setTeamAdmin', function($id) {return $id;})
+            ->where('id', '[0-9]+')
+            ->name('admin@setTeamAdmin');
+
         //SERVER MANAGEMENT
         Route::get('/admin/server', 'ServerController@serverList')
             ->name('admin@listServer');

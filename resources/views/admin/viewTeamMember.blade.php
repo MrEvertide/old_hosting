@@ -27,6 +27,7 @@
                             @else
                                 <td>No</td>
                                 <td>
+                                    <a href="{{ route('admin@setTeamAdmin', $user['id']) }}" class="btn btn-primary">Set admin</a>
                                     <a href="{{ route('admin@deleteTeamMember', $user['id']) }}" class="btn btn-danger">Delete</a>
                                 </td>
                             @endif
