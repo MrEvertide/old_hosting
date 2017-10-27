@@ -22,6 +22,9 @@
 
                     echo Form::label('password', 'Password');
                     echo Form::text('password', $value = old('password'),['class' => 'form-control']);
+
+                    echo Form::label('password_confirmation', 'Confirm password');
+                    echo Form::password('password_confirmation',$attributes = ['class' => 'form-control']);
                     echo '<br>';
 
                     echo Form::submit('Create user',['class' => 'form-control btn btn-primary']);

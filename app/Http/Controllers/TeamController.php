@@ -120,9 +120,9 @@ class TeamController extends Controller
      */
     public function addTeamMemberPost(Request $request) {
         $validation = Validator::make($request->all(), [
-            'name' => 'required|unique:users',
-            'email' => 'required|unique:users',
-            'password' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         if ($validation->fails()) {
