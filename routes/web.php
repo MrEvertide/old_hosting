@@ -50,7 +50,7 @@ Route::group(['middleware' => 'App\Http\Middleware\SetupMiddleware'], function()
             ->where('id', '[0-9]+')
             ->name('admin@viewTeamMember');
 
-        Route::post('/admin/team/delete/{id}', 'TeamController@deleteTeamMember', function($id) {return $id;})
+        Route::get('/admin/team/delete/{id}', 'TeamController@deleteTeamMember', function($id) {return $id;})
             ->where('id', '[0-9]+')
             ->name('admin@deleteTeamMember');
 

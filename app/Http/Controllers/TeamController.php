@@ -33,18 +33,63 @@ class TeamController extends Controller
         return view('admin.addTeamMember');
     }
 
-    public function viewTeamMember() {
-        //temporary
-        return redirect(route('admin@listTeamMember'));
-    }
+    /**
+     * View - Show team member details.
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function viewTeamMember($id) {
+        //Check if the user exist.
+        if (!User::find($id)) {
+            return redirect()->back()->with('error', true)->with('message', 'The specified user does not exist.');
+        }
 
-    public function deleteTeamMember() {
-        //temporary
-        return redirect(route('admin@listTeamMember'));
+        $user = User::find($id);
+
+        //Check if the user is part of the admin's team.
+        $members = $user->team()->users()->get();
+        if (!$members->find($user)) {
+            return redirect()->back()->with('error', true)->with('message', 'You do not have access to this user.');
+        }
+
+        return view('admin.viewTeamMember', ['user' => User::find($id)]);
     }
 
     /**
-     * Process the POST request to create a new user.
+     * Method - Action to delete a user from the team and system.
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteTeamMember($id) {
+        //Check if the user exist.
+        if (!User::find($id)) {
+            return redirect()->back()->with('error', true)->with('message', 'The specified user does not exist.');
+        }
+
+        $user = User::find($id);
+
+        if ($user == Auth::user()) {
+            return redirect()->back()->with('error', true)->with('message', 'You cannot delete yourself.');
+        }
+
+        if ($user->team()->pivot->is_admin) {
+            return redirect()->back()->with('error', true)->with('message', 'You cannot delete an administrator.');
+        }
+
+        //Check if the user is part of the admin's team.
+        $members = $user->team()->users()->get();
+        if (!$members->find($user)) {
+            return redirect()->back()->with('error', true)->with('message', 'You do not have access to delete this user.');
+        }
+
+        //Remove the user from the team then delete it.
+        $user->teams()->detach();
+        $user->delete();
+        return redirect(route('admin@listTeamMember'))->with('success', true)->with('message', 'The user has been deleted.');
+    }
+
+    /**
+     * Post Method - Process the POST request to create a new user.
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse
      */

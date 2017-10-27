@@ -6,9 +6,7 @@
         </div>
         <img style="height: 200px; border-radius: 250px; margin: 10px 0;" src="{{url('images/profile/'.$user->picture)}}">
         <div class="panel-footer">
-            @if (!$user->pivot->is_admin)
-                <a href="{{route("admin@viewTeamMember", [$user->id])}}" class="btn btn-primary">View user</a>
-            @endif
+            <a href="{{route("admin@viewTeamMember", [$user->id])}}" class="btn btn-primary">View details</a>
         </div>
     </div>
 </div>
